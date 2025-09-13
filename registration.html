@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Page</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ff99cc 0%, #66ccff 100%);
+
+  margin:0; padding:0;
+    display:flex; justify-content:center; align-items:center; min-height:100vh;
+  }
+  .container {
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    width:90%; max-width:700px;
+    transition:all 0.3s ease-in-out;
+  }
+  h2 {
+    text-align:center;
+    margin-bottom:25px;
+    color:#4B4B9A;
+  }
+  label {
+    font-weight:bold;
+    margin-top:15px;
+    display:block;
+    color:#333;
+  }
+  input, select, textarea {
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:10px;
+    border:1px solid #bbb;
+    font-size:14px;
+    transition:all 0.3s ease;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color:#4B4B9A;
+    box-shadow:0 0 8px rgba(75,75,154,0.3);
+    outline:none;
+  }
+  textarea { resize: vertical; min-height:60px; }
+  .hidden { display:none; }
+  .error { color:red; font-size:13px; margin-top:5px; }
+  .success { color:green; font-size:13px; margin-top:5px; }
+  button {
+    background:#4B4B9A;
+    color:#fff;
+    margin-top:20px;
+    cursor:pointer;
+    font-size:16px;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+    width:100%;
+    transition:all 0.3s ease;
+  }
+  button:hover {
+    background:#6f6fd1;
+    transform:translateY(-2px);
+  }
+  .radio-group { display:flex; gap:20px; margin-top:6px; }
+  .radio-group input { width:auto; }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Registration Page</h2>
+<form id="regForm">
+
+  <!-- Name -->
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" required>
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" required>
+
+  <!-- Email & Mobile -->
+  <label for="email">Email:</label>
+  <input type="email" id="email" placeholder="example@email.com" required>
+  <label for="mobile">Mobile Number:</label>
+  <input type="text" id="mobile" placeholder="10 digits" required>
+
+  <!-- DOB & Gender -->
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" required>
+  <label>Gender:</label>
+  <div class="radio-group">
+    <input type="radio" name="gender" value="Male" required> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <input type="radio" name="gender" value="Other"> Other
+  </div>
+
+  <!-- Highest Qualification & Specialization -->
+  <label for="qualification">Highest Qualification:</label>
+  <select id="qualification" required>
+    <option value="">-- Select --</option>
+    <option>10th</option>
+    <option>12th</option>
+    <option>B.Sc</option>
+    <option>B.Tech</option>
+    <option>B.Com</option>
+    <option>BBA</option>
+    <option>BA</option>
+    <option>BE</option>
+    <option>M.Sc</option>
+    <option>M.Tech</option>
+    <option>MBA</option>
+    <option>M.Com</option>
+    <option>MA</option>
+    <option>PhD</option>
+    <option>Diploma</option>
+    <option>ITI</option>
+    <option>Certificate Course</option>
+    <option>Other</option>
+  </select>
+  <div id="qualOtherDiv" class="hidden">
+    <textarea id="qualOther" placeholder="Enter your qualification"></textarea>
+  </div>
+
+  <label for="specialization">Specialization / Branch:</label>
+  <select id="specialization" required>
+    <option value="">-- Select --</option>
+    <option>Computer Science</option>
+    <option>Information Technology</option>
+    <option>Electronics</option>
+    <option>Mechanical</option>
+    <option>Civil</option>
+    <option>Electrical</option>
+    <option>Biotechnology</option>
+    <option>Finance</option>
+    <option>Marketing</option>
+    <option>HR</option>
+    <option>Psychology</option>
+    <option>Data Science</option>
+    <option>AI/ML</option>
+    <option>Business Analytics</option>
+    <option>Cybersecurity</option>
+    <option>Others</option>
+  </select>
+  <div id="specOtherDiv" class="hidden">
+    <textarea id="specOther" placeholder="Enter your branch/specialization"></textarea>
+  </div>
+
+  <!-- Year of Passout -->
+  <label for="passout">Year of Passout:</label>
+  <select id="passout" required>
+    <option value="">-- Select Year --</option>
+    <!-- Years 1990-2030 -->
+    <script>
+      for(let y=1990; y<=2030; y++){
+        document.write('<option>'+y+'</option>');
+      }
+    </script>
+  </select>
+
+  <!-- Internship -->
+  <label>Have you done any internship?</label>
+  <div class="radio-group">
+    <input type="radio" name="internship" value="Yes" required> Yes
+    <input type="radio" name="internship" value="No"> No
+  </div>
+  <div id="internshipDiv" class="hidden">
+    <label>Company Name:</label>
+    <input type="text" id="internCompany">
+    <label>Duration:</label>
+    <input type="text" id="internDuration">
+    <label>Role / Work Done:</label>
+    <textarea id="internRole"></textarea>
+  </div>
+
+  <!-- Projects -->
+  <label>Do you have any projects?</label>
+  <div class="radio-group">
+    <input type="radio" name="projects" value="Yes" required> Yes
+    <input type="radio" name="projects" value="No"> No
+  </div>
+  <div id="projectsDiv" class="hidden">
+    <label>Project Link:</label>
+    <input type="url" id="projectLink" placeholder="https://github.com/yourproject">
+  </div>
+
+  <!-- Certifications -->
+  <label>Do you have any certifications?</label>
+  <div class="radio-group">
+    <input type="radio" name="certifications" value="Yes" required> Yes
+    <input type="radio" name="certifications" value="No"> No
+  </div>
+  <div id="certDiv" class="hidden">
+    <label>Certificate Name:</label>
+    <input type="text" id="certName" placeholder="Technical/Professional">
+    <label>Issued By:</label>
+    <input type="text" id="certBy" placeholder="Company/Institute">
+    <label>Year:</label>
+    <select id="certYear">
+      <option value="">-- Select Year --</option>
+      <script>
+        for(let y=1990; y<=2030; y++){
+          document.write('<option>'+y+'</option>');
+        }
+      </script>
+    </select>
+  </div>
+
+  <!-- Work Experience -->
+  <label>Have you worked before?</label>
+  <div class="radio-group">
+    <input type="radio" name="experience" value="Yes" required> Yes
+    <input type="radio" name="experience" value="No"> No
+  </div>
+  <div id="workExpDiv" class="hidden">
+    <label>Company Name:</label>
+    <input type="text" id="workCompany">
+    <label>Designation / Role:</label>
+    <input type="text" id="workRole">
+    <label>Duration (Years):</label>
+    <input type="number" id="workDuration" min="1" max="15">
+    <label>Reason for leaving (Optional):</label>
+    <textarea id="workReason" placeholder="Optional / Prefer not to say"></textarea>
+  </div>
+
+  <!-- Resume Upload -->
+  <label>Upload Resume (Optional):</label>
+  <input type="file" id="resume">
+
+  <!-- Github & LinkedIn -->
+  <label>Github Profile (Optional):</label>
+  <input type="url" id="github" placeholder="https://github.com/username">
+  <label>LinkedIn Profile (Optional):</label>
+  <input type="url" id="linkedin" placeholder="https://linkedin.com/in/username">
+
+  <!-- Declaration -->
+  <label>Declaration:</label>
+  <textarea disabled>I hereby declare that the information provided above is true and correct as per my best knowledge.</textarea>
+  <div class="radio-group">
+    <input type="radio" checked disabled> I Accept
+  </div>
+
+  <div id="message" class="error"></div>
+  <button type="submit">Submit</button>
+</form>
+</div>
+
+<script>
+const form = document.getElementById("regForm");
+
+// Show/hide dynamic fields
+const internshipRad = document.getElementsByName("internship");
+const internshipDiv = document.getElementById("internshipDiv");
+const projectsRad = document.getElementsByName("projects");
+const projectsDiv = document.getElementById("projectsDiv");
+const certRad = document.getElementsByName("certifications");
+const certDiv = document.getElementById("certDiv");
+const expRad = document.getElementsByName("experience");
+const workExpDiv = document.getElementById("workExpDiv");
+const qualSelect = document.getElementById("qualification");
+const qualOtherDiv = document.getElementById("qualOtherDiv");
+const specSelect = document.getElementById("specialization");
+const specOtherDiv = document.getElementById("specOtherDiv");
+
+function toggleDiv(radioNodeList, div) {
+  radioNodeList.forEach(r => r.addEventListener("change", ()=>{
+    div.classList.toggle("hidden", r.value !== "Yes" || !r.checked);
+  }));
+}
+
+toggleDiv(internshipRad, internshipDiv);
+toggleDiv(projectsRad, projectsDiv);
+toggleDiv(certRad, certDiv);
+toggleDiv(expRad, workExpDiv);
+
+// Qualification & Specialization Others
+qualSelect.addEventListener("change", ()=>qualOtherDiv.classList.toggle("hidden", qualSelect.value !== "Other"));
+specSelect.addEventListener("change", ()=>specOtherDiv.classList.toggle("hidden", specSelect.value !== "Others"));
+
+// Form submission
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  const messageDiv = document.getElementById("message");
+  messageDiv.textContent = "";
+  messageDiv.className = "error";
+
+  // Basic validation
+  const firstName = document.getElementById("firstName").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const dob = document.getElementById("dob").value;
+  const gender = document.querySelector('input[name="gender"]:checked')?.value;
+  const qualification = qualSelect.value === "Other" ? document.getElementById("qualOther").value.trim() : qualSelect.value;
+  const specialization = specSelect.value === "Others" ? document.getElementById("specOther").value.trim() : specSelect.value;
+  const passout = document.getElementById("passout").value;
+
+  // Validate mandatory fields
+  if(!firstName || !lastName || !email || !mobile || !dob || !gender || !qualification || !specialization || !passout){
+    messageDiv.textContent = "Please fill all mandatory fields!";
+    return;
+  }
+  // Mobile validation
+  if(!/^\d{10}$/.test(mobile)){
+    messageDiv.textContent = "Enter valid 10 digit mobile number!";
+    return;
+  }
+  // Email validation
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    messageDiv.textContent = "Enter valid email!";
+    return;
+  }
+
+  // Save data
+  localStorage.setItem("registration", JSON.stringify({
+    firstName,lastName,email,mobile,dob,gender,qualification,specialization,passout
+  }));
+
+  window.location.href = "confirmation.html";
+});
+</script>
+</body>
+</html>

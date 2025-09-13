@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Field Demand Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #ffe6f0, #d8b3e6, #cce6ff); /* lighter gradient */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+canvas {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.next-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #3498db;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.next-btn:hover {
+  background: #2980b9;
+}
+</style>
+</head>
+<body>
+<h2>Field Demand Growth (Key Changing Years)</h2>
+<canvas id="fieldChart" width="900" height="400"></canvas>
+<button class="next-btn" onclick="goNext()">Go to Company Preference Page →</button>
+
+<script>
+// Get user's chosen domain from localStorage (set it in Skills page JS)
+let userDomain = localStorage.getItem("userDomain") || "";
+
+// Domains
+const labels = [
+  'Web Development', 'Mobile App Development', 'Data Science', 'Machine Learning',
+  'Artificial Intelligence', 'Cybersecurity', 'Cloud Computing', 'DevOps',
+  'UI/UX Design', 'Game Development', 'Big Data', 'Blockchain'
+];
+
+// Sample growth data per year
+const datasets = [
+  { year: '2010', data: [40,30,20,10,5,15,10,5,2,8,0,0] },
+  { year: '2014', data: [55,45,35,25,15,30,25,15,10,18,15,10] },
+  { year: '2016', data: [65,50,45,35,25,40,35,25,15,25,30,20] },
+  { year: '2019', data: [80,70,60,50,40,55,50,35,25,35,55,40] },
+  { year: '2022', data: [90,80,75,65,55,70,65,50,35,45,75,60] },
+  { year: '2025', data: [95,90,85,75,70,80,75,65,50,60,90,75] }
+];
+
+// Blue & purple shades
+const defaultColors = [
+  'rgba(52,152,219,0.7)',
+  'rgba(41,128,185,0.7)',
+  'rgba(93,173,226,0.7)',
+  'rgba(155,89,182,0.7)',
+  'rgba(142,68,173,0.7)',
+  'rgba(125,60,152,0.7)'
+];
+
+const highlightColor = 'rgba(231,76,240,0.9)'; // Bright purple for user domain
+
+const chartDatasets = datasets.map((d,i)=>{
+  const backgroundColors = labels.map(label => 
+    label === userDomain ? highlightColor : defaultColors[i % defaultColors.length]
+  );
+  return {
+    label: d.year,
+    data: d.data,
+    backgroundColor: backgroundColors
+  };
+});
+
+const config = {
+  type: 'bar',
+  data: { labels: labels, datasets: chartDatasets },
+  options: {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: ${context.parsed.y}% growth`;
+          }
+        }
+      },
+      legend: { position: 'top' },
+      title: {
+        display: true,
+        text: 'Years When Each Field’s Demand Changed',
+        font: { size: 18 }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: 'Demand Growth (%)' }
+      },
+      x: {
+        title: { display: true, text: 'Fields' }
+      }
+    }
+  }
+};
+
+new Chart(document.getElementById('fieldChart').getContext('2d'), config);
+
+function goNext() {
+  window.location.href = "company-preference.html";
+}
+</script>
+</body>
+</html>
+

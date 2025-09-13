@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Preference</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #ff99cc 0%, #66ccff 100%);
+
+
+    margin:0; padding:0;
+    display:flex; justify-content:center; align-items:center; min-height:100vh;
+  }
+  .container {
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    width:90%; max-width:600px;
+    transition:all 0.3s ease-in-out;
+  }
+  h2 {
+    text-align:center;
+    margin-bottom:25px;
+    color:#4B4B9A; /* professional blue-purple */
+  }
+  label {
+    font-weight:bold;
+    margin-top:15px;
+    display:block;
+    color:#333;
+  }
+  select, textarea, input {
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:10px;
+    border:1px solid #bbb;
+    font-size:14px;
+    transition:all 0.3s ease;
+  }
+  select:focus, input:focus, textarea:focus {
+    border-color:#4B4B9A;
+    box-shadow:0 0 8px rgba(75,75,154,0.3);
+    outline:none;
+  }
+  textarea { resize: vertical; min-height:60px; }
+  .hidden { display:none; }
+  .error { color:red; font-size:13px; margin-top:5px; }
+  .success { color:green; font-size:13px; margin-top:5px; }
+  button {
+    background:#4B4B9A;
+    color:#fff;
+    margin-top:20px;
+    cursor:pointer;
+    font-size:16px;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+    width:100%;
+    transition:all 0.3s ease;
+  }
+  button:hover {
+    background:#6f6fd1;
+    transform:translateY(-2px);
+  }
+  @media screen and (max-width:600px){
+    .container{padding:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Company Preference</h2>
+<form id="companyForm">
+
+  <!-- Preferred Role -->
+  <label for="role">Preferred Role:</label>
+  <select id="role" required>
+    <option value="">-- Select Role --</option>
+    <option>Software Engineer</option>
+    <option>Frontend Developer</option>
+    <option>Backend Developer</option>
+    <option>Full Stack Developer</option>
+    <option>Data Analyst</option>
+    <option>Data Scientist</option>
+    <option>Machine Learning Engineer</option>
+    <option>DevOps Engineer</option>
+    <option>UI/UX Designer</option>
+    <option>Product Manager</option>
+    <option>Quality Analyst</option>
+    <option>Cybersecurity Analyst</option>
+    <option>Cloud Engineer</option>
+    <option>Mobile App Developer</option>
+    <option>Technical Support</option>
+    <option>Others</option>
+  </select>
+  <div id="roleOtherDiv" class="hidden">
+    <textarea id="roleOther" placeholder="Enter your preferred role"></textarea>
+  </div>
+
+  <!-- Industry Preference -->
+  <label for="industry">Industry Preference:</label>
+  <select id="industry" required>
+    <option value="">-- Select Industry --</option>
+    <option>IT</option>
+    <option>Healthcare</option>
+    <option>Finance</option>
+    <option>Education</option>
+    <option>Manufacturing</option>
+    <option>Automobile</option>
+    <option>Telecom</option>
+    <option>Retail</option>
+    <option>Energy</option>
+    <option>Entertainment</option>
+    <option>Logistics</option>
+    <option>Pharma</option>
+    <option>Real Estate</option>
+    <option>Media</option>
+    <option>Aerospace</option>
+    <option>Others</option>
+  </select>
+  <div id="industryOtherDiv" class="hidden">
+    <textarea id="industryOther" placeholder="Enter your industry"></textarea>
+  </div>
+
+  <!-- Location Preference -->
+  <label for="location">Location Preference (City, State):</label>
+  <input type="text" id="location" placeholder="e.g. Mumbai, Maharashtra" required>
+
+  <!-- Willing to Relocate -->
+  <label for="relocate">Willing to Relocate:</label>
+  <select id="relocate" required>
+    <option value="">-- Select --</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <!-- Work Mode -->
+  <label for="workmode">Preferred Work Mode:</label>
+  <select id="workmode" required>
+    <option value="">-- Select --</option>
+    <option>Onsite</option>
+    <option>Remote</option>
+    <option>Hybrid</option>
+  </select>
+
+  <!-- Employment Type -->
+  <label for="employment">Employment Type:</label>
+  <select id="employment" required>
+    <option value="">-- Select --</option>
+    <option>Internship</option>
+    <option>Full-time</option>
+    <option>Contract</option>
+  </select>
+
+  <!-- Salary Expected (Optional) -->
+  <label for="salary">Expected Salary (Optional):</label>
+  <input type="text" id="salary" placeholder="e.g. 500000">
+
+  <!-- Company Type Preference (Optional) -->
+  <label for="companyType">Company Type Preference (Optional):</label>
+  <select id="companyType">
+    <option value="">-- Select --</option>
+    <option>Startup</option>
+    <option>Mid-size</option>
+    <option>Large</option>
+    <option>MNC</option>
+    <option>Others</option>
+  </select>
+  <div id="companyTypeOtherDiv" class="hidden">
+    <textarea id="companyTypeOther" placeholder="Enter company type"></textarea>
+  </div>
+
+  <!-- Dream Company -->
+  <label for="dreamCompany">Dream Company:</label>
+  <select id="dreamCompany" required>
+    <option value="">-- Select Company --</option>
+    <option>Google</option>
+    <option>Microsoft</option>
+    <option>Amazon</option>
+    <option>Apple</option>
+    <option>Facebook</option>
+    <option>Tesla</option>
+    <option>Adobe</option>
+    <option>Netflix</option>
+    <option>Intel</option>
+    <option>IBM</option>
+    <option>Oracle</option>
+    <option>Salesforce</option>
+    <option>Uber</option>
+    <option>Airbnb</option>
+    <option>Snap Inc.</option>
+    <option>LinkedIn</option>
+    <option>PayPal</option>
+    <option>Spotify</option>
+    <option>Twitter</option>
+    <option>Zoom</option>
+    <option>Qualcomm</option>
+    <option>Siemens</option>
+    <option>Nvidia</option>
+    <option>Samsung</option>
+    <option>HP</option>
+    <option>Dropbox</option>
+    <option>Shopify</option>
+    <option>Infosys</option>
+    <option>Others</option>
+  </select>
+  <div id="dreamCompanyOtherDiv" class="hidden">
+    <textarea id="dreamCompanyOther" placeholder="Enter your dream company"></textarea>
+  </div>
+
+  <!-- Reason for Dream Company -->
+  <label for="dreamReason">Why this company?</label>
+  <textarea id="dreamReason" placeholder="Explain why" required></textarea>
+
+  <div id="message" class="error"></div>
+  <button type="submit">Next</button>
+</form>
+</div>
+
+<script>
+const form = document.getElementById("companyForm");
+
+// Show/hide Others fields
+const roleSelect = document.getElementById("role");
+const roleOtherDiv = document.getElementById("roleOtherDiv");
+const industrySelect = document.getElementById("industry");
+const industryOtherDiv = document.getElementById("industryOtherDiv");
+const companyTypeSelect = document.getElementById("companyType");
+const companyTypeOtherDiv = document.getElementById("companyTypeOtherDiv");
+const dreamCompanySelect = document.getElementById("dreamCompany");
+const dreamCompanyOtherDiv = document.getElementById("dreamCompanyOtherDiv");
+
+roleSelect.addEventListener("change", ()=>roleOtherDiv.classList.toggle("hidden", roleSelect.value !== "Others"));
+industrySelect.addEventListener("change", ()=>industryOtherDiv.classList.toggle("hidden", industrySelect.value !== "Others"));
+companyTypeSelect.addEventListener("change", ()=>companyTypeOtherDiv.classList.toggle("hidden", companyTypeSelect.value !== "Others"));
+dreamCompanySelect.addEventListener("change", ()=>dreamCompanyOtherDiv.classList.toggle("hidden", dreamCompanySelect.value !== "Others"));
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  const messageDiv = document.getElementById("message");
+  messageDiv.textContent = "";
+  messageDiv.className = "error";
+
+  const role = roleSelect.value === "Others" ? document.getElementById("roleOther").value.trim() : roleSelect.value;
+  const industry = industrySelect.value === "Others" ? document.getElementById("industryOther").value.trim() : industrySelect.value;
+  const location = document.getElementById("location").value.trim();
+  const relocate = document.getElementById("relocate").value;
+  const workmode = document.getElementById("workmode").value;
+  const employment = document.getElementById("employment").value;
+  const salary = document.getElementById("salary").value.trim(); // optional
+  const companyType = companyTypeSelect.value === "Others" ? document.getElementById("companyTypeOther").value.trim() : companyTypeSelect.value; // optional
+  const dreamCompany = dreamCompanySelect.value === "Others" ? document.getElementById("dreamCompanyOther").value.trim() : dreamCompanySelect.value;
+  const dreamReason = document.getElementById("dreamReason").value.trim();
+
+  // Validate mandatory fields (excluding optional fields salary and companyType)
+  if(!role || !industry || !location || !relocate || !workmode || !employment || !dreamCompany || !dreamReason){
+    messageDiv.textContent = "Please fill all mandatory fields!";
+    return;
+  }
+
+  // Save data
+  localStorage.setItem("companyPref", JSON.stringify({
+    role, industry, location, relocate, workmode, employment, salary, companyType, dreamCompany, dreamReason
+  }));
+
+  window.location.href = "registration.html";
+});
+</script>
+</body>
+</html>

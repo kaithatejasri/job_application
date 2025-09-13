@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page with OTP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffc0cb, #9370db, #0000ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      width: 95%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      background: #1877f2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .forgot {
+      display: block;
+      margin: 10px 0;
+      font-size: 14px;
+      text-decoration: none;
+      color: #1877f2;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Enter Username" required>
+      <input type="email" name="email" placeholder="Enter Email" 
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+             title="Enter a valid email (e.g., user@example.com)" required>
+      <input type="password" name="password" placeholder="Enter Password" required>
+      <a class="forgot" onclick="forgotPassword()">Forgot Password?</a>
+      <button type="submit" class="btn">Login</button>
+    </form>
+  </div>
+
+  <script>
+    function forgotPassword() {
+      const email = prompt("Enter your email to receive OTP:");
+      if (!email) return alert("Email is required!");
+
+      const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+      alert(`Your OTP is: ${otp}\n(For testing only, in real apps it is sent via email)`);
+
+      const userOtp = prompt("Enter the OTP you received:");
+      if (parseInt(userOtp) === otp) {
+        const newPassword = prompt("Enter your new password:");
+        if (newPassword) {
+          alert("Password successfully reset!");
+        } else {
+          alert("Password reset cancelled.");
+        }
+      } else {
+        alert("Incorrect OTP! Try again.");
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const username = document.querySelector("input[name='username']").value;
+      localStorage.setItem("username", username);
+      window.location.href = "skills.html"; 
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skills & Interested Domain</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #ffc0cb, #9370db, #0000ff);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+  .container {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 800px;
+    margin-top: 50px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 26px;
+  }
+  p.info {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+  }
+  label {
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+    color: #333;
+  }
+  textarea, select, input[type="text"], button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+  .hidden { display: none; }
+  .error { color: red; margin-top: 8px; font-size: 14px; }
+  .success { color: green; margin-top: 8px; font-size: 14px; }
+  button {
+    background: #007bff;
+    color: #fff;
+    margin-top: 22px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    transition: background 0.3s;
+  }
+  button:hover { background: #0056b3; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Skills & Interested Domain</h2>
+  <p class="info">Tell us your skills and preferred career domain.  
+  We’ll guide you with suggestions if you’re missing key skills. 🚀</p>
+
+  <form id="skillsForm">
+    <label for="skills">Enter your skills (comma separated):</label>
+    <textarea id="skills" placeholder="e.g. HTML, CSS, JavaScript" required></textarea>
+
+    <label for="domain">Select your interested domain:</label>
+    <select id="domain" required>
+      <option value="">-- Select Domain --</option>
+      <option value="Web Development">Web Development</option>
+      <option value="Mobile App Development">Mobile App Development</option>
+      <option value="Data Science">Data Science</option>
+      <option value="Machine Learning">Machine Learning</option>
+      <option value="Artificial Intelligence">Artificial Intelligence</option>
+      <option value="Cybersecurity">Cybersecurity</option>
+      <option value="Cloud Computing">Cloud Computing</option>
+      <option value="DevOps">DevOps</option>
+      <option value="UI/UX Design">UI/UX Design</option>
+      <option value="Game Development">Game Development</option>
+      <option value="Blockchain">Blockchain</option>
+      <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+      <option value="AR/VR">AR/VR</option>
+      <option value="Big Data">Big Data</option>
+      <option value="Database Management">Database Management</option>
+      <option value="Networking">Networking</option>
+      <option value="Embedded Systems">Embedded Systems</option>
+      <option value="Digital Marketing">Digital Marketing</option>
+      <option value="Software Testing">Software Testing</option>
+      <option value="Others">Others</option>
+    </select>
+
+    <div id="otherDomainDiv" class="hidden">
+      <label for="otherDomain">Enter your custom domain:</label>
+      <input type="text" id="otherDomain" placeholder="Enter domain name">
+    </div>
+
+    <div id="message" class="error"></div>
+    <button type="submit">Next ➡</button>
+  </form>
+</div>
+
+<script>
+const form = document.getElementById("skillsForm");
+const domainSelect = document.getElementById("domain");
+const otherDomainDiv = document.getElementById("otherDomainDiv");
+const otherDomainInput = document.getElementById("otherDomain");
+const messageDiv = document.getElementById("message");
+
+const domainSkills = {
+  "Web Development": ["html","css","javascript"],
+  "Mobile App Development": ["java","kotlin","flutter","react native"],
+  "Data Science": ["python","statistics","pandas"],
+  "Machine Learning": ["python","scikit-learn","numpy"],
+  "Artificial Intelligence": ["python","tensorflow","neural networks"],
+  "Cybersecurity": ["networking","linux","cryptography"],
+  "Cloud Computing": ["aws","azure","gcp"],
+  "DevOps": ["git","docker","kubernetes"],
+  "UI/UX Design": ["figma","adobe xd","wireframing"],
+  "Game Development": ["unity","c#","unreal engine"],
+  "Blockchain": ["solidity","ethereum","smart contracts"],
+  "Internet of Things (IoT)": ["arduino","raspberry pi","sensors"],
+  "AR/VR": ["unity","c#","3d modeling"],
+  "Big Data": ["hadoop","spark","sql"],
+  "Database Management": ["sql","mysql","oracle"],
+  "Networking": ["tcp/ip","routing","firewalls"],
+  "Embedded Systems": ["c","microcontrollers","assembly"],
+  "Digital Marketing": ["seo","content","analytics"],
+  "Software Testing": ["selenium","manual testing","automation"]
+};
+
+domainSelect.addEventListener("change", ()=>{
+  if(domainSelect.value==="Others"){
+    otherDomainDiv.classList.remove("hidden");
+    otherDomainInput.required = true;
+  } else {
+    otherDomainDiv.classList.add("hidden");
+    otherDomainInput.required = false;
+  }
+});
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  messageDiv.textContent="";
+  messageDiv.className="error";
+
+  const skillsInput = document.getElementById("skills").value
+    .toLowerCase()
+    .split(",")
+    .map(s => s.trim())
+    .filter(s => s !== "");
+
+  const chosenDomain = domainSelect.value;
+  const otherDomain = otherDomainInput.value.trim();
+
+  if(!skillsInput.length || (!chosenDomain) || (chosenDomain==="Others" && !otherDomain)){
+    messageDiv.textContent="All fields are mandatory!";
+    return;
+  }
+
+  let domainToCheck = chosenDomain;
+  if(chosenDomain==="Others"){
+    if(!/^[a-zA-Z ]+$/.test(otherDomain)){
+      messageDiv.textContent="Enter a valid domain name (letters only).";
+      return;
+    }
+    domainToCheck = otherDomain;
+  }
+
+  let msg = "";
+  if(domainSkills[domainToCheck]){
+    const required = domainSkills[domainToCheck];
+    const missingSkills = required.filter(skill => !skillsInput.includes(skill));
+    if(missingSkills.length > 0){
+      msg = `Suggestion: To excel in ${domainToCheck}, you should also learn: ${missingSkills.join(", ")}`;
+      messageDiv.textContent = msg;
+      messageDiv.className = "success";
+    } else {
+      messageDiv.textContent = "All validations passed!";
+      messageDiv.className = "success";
+    }
+  } else {
+    messageDiv.textContent = "All validations passed!";
+    messageDiv.className = "success";
+  }
+
+  // Save data for next page
+  localStorage.setItem("userSkills", skillsInput.join(", "));
+  localStorage.setItem("userDomain", domainToCheck);
+
+  // Redirect after 2s
+  setTimeout(()=>{ window.location.href="in_demand.html"; },2000);
+});
+</script>
+</body>
+</html>

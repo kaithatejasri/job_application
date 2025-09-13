@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmation Page</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #d6dff7 0%, #9a9ce0 100%);
+    margin:0; padding:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .container {
+    flex:1;
+    padding:40px;
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  h2 {
+    color:#4B4B9A;
+    font-size:2rem;
+    margin-bottom:10px;
+  }
+  p {
+    font-size:1rem;
+    line-height:1.6;
+    color:#333;
+  }
+  .summary {
+    background:#f4f4ff;
+    padding:20px;
+    border-radius:12px;
+    font-weight:600;
+    line-height:1.8;
+    color:#222;
+  }
+  .status {
+    color:green;
+    font-weight:bold;
+  }
+  .footer {
+    text-align:right;
+    font-style:italic;
+    font-size:0.9rem;
+    color:#555;
+    padding:15px 40px 20px 0;
+  }
+  .footer a {
+    color:#4B4B9A;
+    text-decoration:none;
+  }
+  .footer a:hover {
+    text-decoration:underline;
+  }
+  @media(max-width:600px){
+    .container {
+      padding:20px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Application Submitted Successfully!</h2>
+    <p id="greeting"></p>
+    <p>
+      Our team will review your profile, internships, projects, certifications, and experience. Even if you are a fresher, no worries. If your skills match the job requirements, you will be contacted via email or phone/SMS. Please keep your resume and certificates ready for further process.
+    </p>
+
+    <div class="summary" id="candidateSummary">
+      <!-- Candidate details will appear here -->
+    </div>
+
+    <p>
+      We are looking forward to your successful career. Good luck!
+    </p>
+  </div>
+
+  <div class="footer">
+    Thank you for viewing my project. If you have any suggestions or feedback, go through my LinkedIn profile.<br>
+    LinkedIn: <a href="https://www.linkedin.com/in/teja-sri-kaitha-4852b82b7" target="_blank">https://www.linkedin.com/in/teja-sri-kaitha-4852b82b7</a><br>
+    Name: Kaitha Teja Sri
+  </div>
+
+<script>
+  // Fetch saved registration and company preference info
+  const regData = JSON.parse(localStorage.getItem("registration") || "{}");
+  const companyData = JSON.parse(localStorage.getItem("companyPref") || "{}");
+
+  // Greeting with bold username
+  const greeting = document.getElementById("greeting");
+  const fullName = regData.firstName && regData.lastName ? `${regData.firstName} ${regData.lastName}` : regData.firstName || "";
+  greeting.innerHTML = `Hey <strong>${fullName}</strong>, your application has been submitted successfully.`;
+
+  // Candidate summary
+  const summaryDiv = document.getElementById("candidateSummary");
+
+  // Auto-generate application ID (random 6-digit number)
+  const appId = 'APP' + Math.floor(100000 + Math.random() * 900000);
+
+  summaryDiv.innerHTML = `
+    Name: ${fullName}<br>
+    Email ID: ${regData.email || ''}<br>
+    Application ID: ${appId}<br>
+    Preferred Domain: ${companyData.role || ''}<br>
+    Status: <span class="status">Submitted &#10004;</span>
+  `;
+</script>
+</body>
+</html>
